@@ -1,5 +1,3 @@
-#### **Exemplo CORRETO** (apenas código Python)
-```python
 import os
 from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
@@ -8,14 +6,20 @@ from backend.models import Base, Message
 from ai_engine import get_ai_response
 from backend.services.facebook_api import verify_webhook, handle_messages
 
+# carrega variáveis de ambiente de .env
 load_dotenv()
+
+# cria as tabelas no banco se ainda não existirem
 Base.metadata.create_all(bind=engine)
 
+# define o app Flask e a pasta de templates
 app = Flask(__name__, template_folder="templates")
+
 
 @app.route("/", methods=["GET"])
 def index():
     return render_template("index.html")
+
 
 @app.route("/admin", methods=["GET"])
 def admin_panel():
@@ -24,20 +28,28 @@ def admin_panel():
     db.close()
     return render_template("admin.html", messages=msgs)
 
-@app.route("/webhook", methods=["GET","POST"])
+
+@app.route("/webhook", methods=["GET", "POST"])
 def webhook():
     if request.method == "GET":
+        # validação do Meta no setup do webhook
         return verify_webhook()
+    # trata envios de mensagem vindas do Messenger
     return handle_messages()
+
 
 @app.route("/api/message", methods=["POST"])
 def api_message():
     data = request.json
     db = SessionLocal()
     msg = Message(sender=data["sender"], content=data["message"])
-    db.add(msg); db.commit(); db.refresh(msg); db.close()
+    db.add(msg)
+    db.commit()
+    db.refresh(msg)
+    db.close()
     response = get_ai_response(data["message"])
     return jsonify({"response": response})
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
