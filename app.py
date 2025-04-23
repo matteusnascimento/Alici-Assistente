@@ -17,12 +17,14 @@ load_dotenv()
 Base.metadata.create_all(bind=engine)
 
 # define o app Flask e a pasta de templates
-app = Flask(__name__, template_folder="templates")
+from flask import Flask, render_template
+import os
 
+app = Flask(__name__, template_folder='backend/templates')
 
-@app.route("/", methods=["GET"])
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template('index.html')
 
 
 @app.route("/admin", methods=["GET"])
