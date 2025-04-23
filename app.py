@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
 from backend.database import SessionLocal, engine
-from backend.models import Base, Message
+from backend.models import Message
 from ai_engine import get_ai_response
 from backend.services.facebook_api import verify_webhook, handle_messages
 
