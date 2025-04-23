@@ -1,8 +1,12 @@
 import os
 from flask import Flask, request, jsonify, render_template
 from dotenv import load_dotenv
-from backend.database import SessionLocal, engine
-from backend.models import Message
+
+# importa Base (metadata) e engine/SessionLocal do database.py
+from backend.database import Base, SessionLocal, engine
+# importa a classe Message do models.py
+from backend.models   import Message
+
 from ai_engine import get_ai_response
 from backend.services.facebook_api import verify_webhook, handle_messages
 
@@ -32,9 +36,7 @@ def admin_panel():
 @app.route("/webhook", methods=["GET", "POST"])
 def webhook():
     if request.method == "GET":
-        # validação do Meta no setup do webhook
         return verify_webhook()
-    # trata envios de mensagem vindas do Messenger
     return handle_messages()
 
 
