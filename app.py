@@ -17,7 +17,7 @@ load_dotenv()
 Base.metadata.create_all(bind=engine)
 
 # define o app Flask e as pastas
-app = Flask(__name__, template_folder='templates', static_folder='static')
+app = Flask(__name__, template_folder='backend/templates', static_folder='static')
 
 @app.route('/')
 def index():
