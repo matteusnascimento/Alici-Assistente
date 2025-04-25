@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alici Assistente</title>
+    <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+    <header>
+        <h1>Alici, sua assistente virtual</h1>
+        <button id="chatBtn">Falar com a Alici</button>
+    </header>
+    <main>
+        <section class="chat-popup" id="chatPopup">
+            <div class="chat-header">
+                <h2>Chat com Alici</h2>
+                <button id="closeBtn">X</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="message user">Olá, Alici!</div>
+                <div class="message alici">Olá! Como posso ajudar você hoje?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
+                <button id="sendBtn">Enviar</button>
+            </div>
+        </section>
+        <section class="features">
+            <div class="feature-card"> 
+                <img src="/images/icon1.png" alt="Ícone 1" />
+                <h3>Responder mensagens</h3>
+            </div>
+            <div class="feature-card"> 
+                <img src="/images/icon2.png" alt="Ícone 2" />
+                <h3>Fazer publicações</h3>
+            </div>
+            <div class="feature-card"> 
+                <img src="/images/icon3.png" alt="Ícone 3" />
+                <h3>Aprendizado contínuo</h3>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Alici. Todos os direitos reservados.</p>
+    </footer>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
