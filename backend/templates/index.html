@@ -1,70 +1,126 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Alici Assistente</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
+    <meta charset="UTF-8">
+    <title>Alici, sua assistente virtual</title>
+
     <!-- Flaticon UIcons CDN -->
-<link rel="stylesheet" href="style.css" />
-<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
-<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
-<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
+    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css">
 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 30px;
+            background-color: #f9f9f9;
+        }
 
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        .alici-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
 
-<!-- Bootstrap JS (opcional, para alguns botões funcionarem) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        .rounded-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007BFF;
+        }
 
-<!-- Ícones do Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+        .chat-container, .section {
+            margin-top: 30px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
 
+        h1, h2, h3 {
+            margin: 0 0 10px;
+        }
 
-    
+        form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
-    <header>
+
+    <div class="alici-header">
+        <img src="{{ url_for('static', filename='img/alici-avatar1.png') }}" alt="Alici Avatar" class="rounded-avatar">
         <h1>Alici, sua assistente virtual</h1>
-        <button id="chatBtn">Falar com a Alici</button>
-    </header>
-    <main>
-        <section class="chat-popup" id="chatPopup">
-            <div class="chat-header">
-                <h2>Chat com Alici</h2>
-                <button id="closeBtn">X</button>
-            </div>
-            <div class="chat-body" id="chatBody">
-                <div class="message user">Olá, Alici!</div>
-                <div class="message alici">Olá! Como posso ajudar você hoje?</div>
-            </div>
-            <div class="chat-input">
-                <input type="text" id="userInput" placeholder="Digite sua mensagem..." />
-                <button id="sendBtn">Enviar</button>
-            </div>
-        </section>
-        <section class="features">
-            <div class="feature-card"> 
-                <img src="/images/icon1.png" alt="Ícone 1" />
-                <h3>Responder mensagens</h3>
-            </div>
-            <div class="feature-card"> 
-                <img src="/images/icon2.png" alt="Ícone 2" />
-                <h3>Fazer publicações</h3>
-            </div>
-            <div class="feature-card"> 
-                <img src="/images/icon3.png" alt="Ícone 3" />
-                <h3>Aprendizado contínuo</h3>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Alici. Todos os direitos reservados.</p>
-    </footer>
-    <script src="/static/js/script.js"></script>
+    </div>
+
+    <div class="chat-container">
+        <h2><i class="fi fi-ss-user"></i> Chat com Alici</h2>
+        <p><i class="fi fi-br-cross"></i> Olá, Alici!<br>Oi! Como posso te ajudar hoje?</p>
+
+        <form>
+            <input type="text" placeholder="Digite sua mensagem...">
+            <button type="submit"><i class="fi fi-br-check"></i> Enviar</button>
+        </form>
+    </div>
+
+    <div class="section">
+        <h3><i class="fi fi-rr-bell"></i> Respostas Automáticas</h3>
+        <p>Alici está pronta para responder mensagens instantaneamente.</p>
+    </div>
+
+    <div class="section">
+        <h3><i class="fi fi-rr-picture"></i> Publicações Inteligentes</h3>
+        <p>Postagens automáticas com base em sua estratégia de conteúdo.</p>
+    </div>
+
+    <div class="section">
+        <h3><i class="fi fi-rr-refresh"></i> Aprendizado Contínuo</h3>
+        <p>Aprendizado por similaridade com base nas mensagens recebidas.</p>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Alici. Todos os direitos reservados.
+    </div>
+
 </body>
 </html>
+
