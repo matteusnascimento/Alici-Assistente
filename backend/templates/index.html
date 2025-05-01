@@ -1,53 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <title>Alici, sua assistente virtual</title>
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css">
-    <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-solid-straight/css/uicons-solid-straight.css">
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 30px; background-color: #f9f9f9; }
-        .alici-header { display: flex; align-items: center; gap: 15px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        .rounded-avatar { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #007BFF; }
-        .chat-container, .section { margin-top: 30px; background-color: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        h1, h2, h3 { margin: 0 0 10px; }
-        form { display: flex; gap: 10px; margin-top: 10px; }
-        input[type="text"] { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px; }
-        button { padding: 10px 20px; background-color: #007BFF; color: white; border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
-        button:hover { background-color: #0056b3; }
-        .footer { text-align: center; margin-top: 50px; font-size: 14px; color: #888; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Alici – Assistente Virtual</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="alici-header">
-        <img src="{{ url_for('static', filename='img/alici-avatar1.png') }}" alt="Alici Avatar" class="rounded-avatar">
-        <h1>Alici, sua assistente virtual</h1>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center p-4">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-xl">
+    <h1 class="text-2xl font-bold mb-4 text-center">Fale com a Alici</h1>
+    
+    <div id="chat" class="space-y-2 mb-4 max-h-96 overflow-y-auto border p-2 rounded">
+      <!-- Mensagens serão inseridas aqui -->
     </div>
-    <div class="chat-container">
-        <h2><i class="fi fi-ss-user"></i> Chat com Alici</h2>
-        <p><i class="fi fi-br-cross"></i> Olá, Alici!<br>Oi! Como posso te ajudar hoje?</p>
-        <form>
-            <input type="text" placeholder="Digite sua mensagem...">
-            <button type="submit"><i class="fi fi-br-check"></i> Enviar</button>
-        </form>
+
+    <div class="flex">
+      <input id="mensagem" type="text" placeholder="Digite sua mensagem..." class="flex-1 border rounded-l px-3 py-2">
+      <button onclick="enviarMensagem()" class="bg-blue-500 text-white px-4 py-2 rounded-r">Enviar</button>
     </div>
-    <div class="section">
-        <h3><i class="fi fi-rr-bell"></i> Respostas Automáticas</h3>
-        <p>Alici está pronta para responder mensagens instantaneamente.</p>
-    </div>
-    <div class="section">
-        <h3><i class="fi fi-rr-picture"></i> Publicações Inteligentes</h3>
-        <p>Postagens automáticas com base em sua estratégia de conteúdo.</p>
-    </div>
-    <div class="section">
-        <h3><i class="fi fi-rr-refresh"></i> Aprendizado Contínuo</h3>
-        <p>Aprendizado por similaridade com base nas mensagens recebidas.</p>
-    </div>
-    <div class="footer">
-        &copy; 2025 Alici. Todos os direitos reservados.
-    </div>
+  </div>
+
+  <script>
+    async function enviarMensagem() {
+      const input = document.getElementById("mensagem");
+      const texto = input.value.trim();
+      if (!texto) return;
+
+      adicionarMensagem("Você", texto);
+      input.value = "";
+
+      const res = await fetch("/responder", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ mensagem: texto })
+      });
+      const data = await res.json();
+      adicionarMensagem("Alici", data.resposta);
+    }
+
+    function adicionarMensagem(remetente, conteudo) {
+      const chat = document.getElementById("chat");
+      const msg = document.createElement("div");
+      msg.innerHTML = `<strong>${remetente}:</strong> ${conteudo}`;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
 </body>
 </html>
